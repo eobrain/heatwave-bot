@@ -19,6 +19,8 @@ const humidity = Math.round(worstResult.humidity)
 const temp = Math.round(worstResult.temp)
 const feelsLike = Math.round(worstResult.feelsLike)
 
+const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
+
 toot(`
 ${when} in ${worstResult.name}, ${worstResult.country}
 the wet-bulb temperature will be
@@ -35,6 +37,8 @@ The actual temperature will be ${temp}°C
 It will feel like ${feelsLike}°C
 
 There will will be ${worstResult.weather}
+
+${searchUrl}
 
 ${tile(worstPlace)}
 `)
