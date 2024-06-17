@@ -19,26 +19,22 @@ const humidity = Math.round(worstResult.humidity)
 const temp = Math.round(worstResult.temp)
 const feelsLike = Math.round(worstResult.feelsLike)
 
-const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
+// const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
 
 toot(`
-${when} in ${worstResult.name}, ${worstResult.country}
-the wet-bulb temperature will be
+${when} in ${worstResult.name}, ${worstResult.country} the wet-bulb temperature will be
 
       ${wetbulb}°C
 
-This will be a margin of ${sweatability} degrees below body temperature
-which will ${effect}
-
-The humidity will be ${humidity}%
+This will be a margin of ${sweatability} degrees below body temperature which will ${effect}
 
 The actual temperature will be ${temp}°C
 
 It will feel like ${feelsLike}°C
 
-There will will be ${worstResult.weather}
+The humidity will be ${humidity}%
 
-${searchUrl}
+There will will be ${worstResult.weather}
 
 ${tile(worstPlace)}
 `)
