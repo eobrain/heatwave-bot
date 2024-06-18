@@ -22,7 +22,7 @@ const feelsLike = Math.round(worstResult.feelsLike)
 // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
 
 toot(`
-${when} in ${worstResult.name}, ${worstResult.country} the wet-bulb temperature will be
+${when} in ${worstResult.name}, #${worstResult.country} there will be a #Heatwave with a wet-bulb temperature of
 
       ${wetbulb}°C
 
@@ -37,4 +37,6 @@ The humidity will be ${humidity}%
 There will will be ${worstResult.weather}
 
 ${tile(worstPlace)}
+
+#Heatwave${worstResult.country}
 `)
