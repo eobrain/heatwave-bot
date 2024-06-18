@@ -42,7 +42,7 @@ The humidity will be ${humidity}%
 
 There will will be ${worstResult.weather}
 
-${mapUrl}
-
 #Heatwave${country}
+
+${mapUrl}
 `)
