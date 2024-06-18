@@ -22,7 +22,7 @@ const humidity = Math.round(worstResult.humidity)
 const temp = Math.round(worstResult.temp)
 const feelsLike = Math.round(worstResult.feelsLike)
 const { lat, lon } = worstPlace
-const mapUrl = `https://maps.google.com/?ll=${lat},${lon}&q=${lat},${lon}&z=8`
+const mapUrl = `https://maps.google.com/?ll=${lat},${lon}&q=${lat},${lon}&z=5`
 const placeName = await geocode(lat, lon)
 
 // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
