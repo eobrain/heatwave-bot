@@ -1,5 +1,5 @@
 import { toot } from './mastodon.js'
-import { optimize, currentPlace, relTime, BODY_TEMP, humanEffect } from 'wetbulb'
+import { optimize, currentPlace, relTime, BODY_TEMP, describeWetbulb } from 'wetbulb'
 import { geocode } from './geocode.js'
 
 const api = (lat, lon) => `https://weather-424404.uc.r.appspot.com/?lat=${lat}&lon=${lon}`
@@ -18,8 +18,7 @@ async function heatwaveBot (bounds, unit, convert) {
   const country = worstResult.country.split(/[\s-]+/).map(capitalize).join('')
   const when = relTime(worstResult.date)
   const wetbulb = Math.round(convert(worstResult.wetbulb))
-  const sweatability = Math.round(convert(BODY_TEMP) - convert(worstResult.wetbulb))
-  const effect = humanEffect(worstResult.wetbulb)
+  const sweatability = convert(BODY_TEMP) - convert(worstResult.wetbulb)
   const humidity = Math.round(worstResult.humidity)
   const temp = Math.round(convert(worstResult.temp))
   const feelsLike = Math.round(convert(worstResult.feelsLike))
@@ -34,7 +33,7 @@ ${when} in ${worstResult.name}, #${country} (${placeName}) there will be a #Heat
 
       ${wetbulb}°${unit}
 
-This will be a margin of ${sweatability} degrees below body temperature which will ${effect}
+This will be ${describeWetbulb(sweatability, worstResult.wetbulb)}
 
 The actual temperature will be ${temp}°${unit}
 
