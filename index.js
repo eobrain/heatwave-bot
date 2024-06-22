@@ -51,7 +51,7 @@ There will be ${worstResult.weather}
 ${mapUrl}
 `
   const shortStatus = `
-${when} in ${placeName}
+${when} in ${worstResult.name}, #${country}
 
 Wet bulb ${wetbulb}°${unit}
 
@@ -62,7 +62,7 @@ Feels like ${feelsLike}°${unit}
 Humidity ${humidity}%`
 
   await toot(longStatus)
-  await skeet(shortStatus, mapUrl, `${lat} ${lon}`, `Heatwave in ${worstResult.name}`)
+  await skeet(shortStatus, mapUrl, placeName, worstResult.weather)
 }
 
 const farenheit = (celsius) => celsius * 9 / 5 + 32
