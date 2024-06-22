@@ -1,4 +1,5 @@
 import { toot } from './mastodon.js'
+import { skeet } from './bluesky.js'
 import { optimize, currentPlace, relTime, BODY_TEMP, describeWetbulb } from 'wetbulb'
 import { geocode } from './geocode.js'
 
@@ -28,7 +29,7 @@ async function heatwaveBot (bounds, unit, convert) {
 
   // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
 
-  toot(`
+  const longStatus = `
 ${when} in ${worstResult.name}, #${country} (${placeName}) there will be a #Heatwave with a wet-bulb temperature of
 
       ${wetbulb}°${unit}
@@ -46,7 +47,21 @@ There will be ${worstResult.weather}
 #Heatwave${country}
 
 ${mapUrl}
-`)
+`
+  const shortStatus = `
+${when} in (${placeName}) the wet-bulb will be
+
+${wetbulb}°${unit}
+
+${describeWetbulb(sweatability, worstResult.wetbulb)}
+
+Actual ${temp}°${unit}
+Feels like ${feelsLike}°${unit}
+Humidity ${humidity}%
+`
+
+  await toot(longStatus)
+  await skeet(shortStatus)
 }
 
 const farenheit = (celsius) => celsius * 9 / 5 + 32
