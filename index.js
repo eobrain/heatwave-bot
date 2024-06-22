@@ -15,6 +15,8 @@ async function heatwaveBot (bounds, unit, convert) {
 
   console.log(worstPlace, worstResult)
 
+  const quantize = (n) => Math.round(n * 1000) / 1000
+
   const capitalize = s => s[0].toUpperCase() + s.slice(1).toLowerCase()
   const country = worstResult.country.split(/[\s-]+/).map(capitalize).join('')
   const when = relTime(worstResult.date)
@@ -24,7 +26,7 @@ async function heatwaveBot (bounds, unit, convert) {
   const temp = Math.round(convert(worstResult.temp))
   const feelsLike = Math.round(convert(worstResult.feelsLike))
   const { lat, lon } = worstPlace
-  const mapUrl = `https://maps.google.com/?ll=${lat},${lon}&q=${lat},${lon}&z=5`
+  const mapUrl = `https://maps.google.com/?q=${quantize(lat)},${quantize(lon)}`
   const placeName = await geocode(lat, lon)
 
   // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
@@ -49,19 +51,18 @@ There will be ${worstResult.weather}
 ${mapUrl}
 `
   const shortStatus = `
-${when} in (${placeName}) the wet-bulb will be
+${when} in ${placeName}
 
-${wetbulb}°${unit}
+Wet bulb ${wetbulb}°${unit}
 
 ${describeWetbulb(sweatability, worstResult.wetbulb)}
 
 Actual ${temp}°${unit}
 Feels like ${feelsLike}°${unit}
-Humidity ${humidity}%
-`
+Humidity ${humidity}%`
 
   await toot(longStatus)
-  await skeet(shortStatus)
+  await skeet(shortStatus, mapUrl, `${lat} ${lon}`, `Heatwave in ${worstResult.name}`)
 }
 
 const farenheit = (celsius) => celsius * 9 / 5 + 32

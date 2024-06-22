@@ -25,7 +25,7 @@ pp(repo)
 const collection = 'app.bsky.feed.post'
 
 /** Post a response */
-export const skeet = async (status) => {
+export const skeet = async (status, uri, title, description) => {
   const { accessJwt } = await (await sessionResultPromise).json()
 
   const body = JSON.stringify({
@@ -33,7 +33,16 @@ export const skeet = async (status) => {
     collection,
     record: {
       text: status,
-      createdAt: (new Date()).toISOString()
+      createdAt: (new Date()).toISOString(),
+      embed: {
+        $type: 'app.bsky.embed.external',
+        external: {
+          uri,
+          title,
+          description
+        }
+      }
+
     }
   })
   pp(body)
