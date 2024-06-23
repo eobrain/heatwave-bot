@@ -26,8 +26,10 @@ async function heatwaveBot (bounds, unit, convert) {
   const temp = Math.round(convert(worstResult.temp))
   const feelsLike = Math.round(convert(worstResult.feelsLike))
   const { lat, lon } = worstPlace
-  // const mapUrl = `https://maps.google.com/?q=${quantize(lat)},${quantize(lon)}`
-  const mapUrl = `https://geohack.toolforge.org/geohack.php?params=${lat};${lon}`
+  // const googleMapUrl = `https://maps.google.com/?q=${lat},${lon}`
+  // const openMapUrl = `https://wiwosm.toolforge.org/osm-on-ol/kml-on-ol.php?lon=${lon}&lat=${lat}`
+  // const mapUrl = `https://geohack.toolforge.org/geohack.php?params=${lat};${lon}`
+  const weatherUrl = `https://www.wunderground.com/forecast/${lat},${lon}`
   const placeName = await geocode(lat, lon)
 
   // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
@@ -49,7 +51,7 @@ There will be ${worstResult.weather}
 
 #Heatwave${country}
 
-${mapUrl}
+${weatherUrl}
 `
   const shortStatus = `
 ${when} in ${worstResult.name}, #${country}
@@ -63,7 +65,7 @@ Feels like ${feelsLike}°${unit}
 Humidity ${humidity}%`
 
   await toot(longStatus)
-  await skeet(shortStatus, mapUrl, placeName, worstResult.weather)
+  await skeet(shortStatus, weatherUrl, placeName, worstResult.weather)
 }
 
 const farenheit = (celsius) => celsius * 9 / 5 + 32
