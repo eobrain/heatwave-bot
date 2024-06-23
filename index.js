@@ -15,7 +15,7 @@ async function heatwaveBot (bounds, unit, convert) {
 
   console.log(worstPlace, worstResult)
 
-  const quantize = (n) => Math.round(n * 1000) / 1000
+  // const quantize = (n) => Math.round(n * 1000) / 1000
 
   const capitalize = s => s[0].toUpperCase() + s.slice(1).toLowerCase()
   const country = worstResult.country.split(/[\s-]+/).map(capitalize).join('')
@@ -26,7 +26,8 @@ async function heatwaveBot (bounds, unit, convert) {
   const temp = Math.round(convert(worstResult.temp))
   const feelsLike = Math.round(convert(worstResult.feelsLike))
   const { lat, lon } = worstPlace
-  const mapUrl = `https://maps.google.com/?q=${quantize(lat)},${quantize(lon)}`
+  // const mapUrl = `https://maps.google.com/?q=${quantize(lat)},${quantize(lon)}`
+  const mapUrl = `https://geohack.toolforge.org/geohack.php?params=${lat};${lon}`
   const placeName = await geocode(lat, lon)
 
   // const searchUrl = `https://www.google.com/search?q=%22${encodeURIComponent(worstResult.name)}%22+${encodeURIComponent(worstResult.country)}+excessive+heat`
