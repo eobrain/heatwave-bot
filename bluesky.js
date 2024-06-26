@@ -45,7 +45,6 @@ export const skeet = async (status, uri, title, description) => {
 
     }
   })
-  pp(body)
   const result = await fetch(ENDPOINT, {
     method: 'POST',
     headers: {

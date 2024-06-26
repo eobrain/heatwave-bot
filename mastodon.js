@@ -13,7 +13,7 @@ export const toot = async (status) => {
   const body = new URLSearchParams()
   body.append('status', status)
   pp(body)
-  const result = await fetch(pp(`${baseUrl}/api/v1/statuses`), {
+  const result = await fetch(`${baseUrl}/api/v1/statuses`, {
     method: 'POST',
     headers,
     body

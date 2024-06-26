@@ -1,6 +1,6 @@
 import { toot } from './mastodon.js'
 import { skeet } from './bluesky.js'
-import { optimize, currentPlace, relTime, BODY_TEMP, describeWetbulb } from 'wetbulb'
+import { optimize, relTime, BODY_TEMP, describeWetbulb } from 'wetbulb'
 import { geocode } from './geocode.js'
 
 const api = (lat, lon) => `https://weather-424404.uc.r.appspot.com/?lat=${lat}&lon=${lon}`
@@ -9,7 +9,7 @@ async function heatwaveBot (bounds, unit, convert) {
   let count = 0
   const { worstPlace, worstResult } = await optimize(api,
     data => {
-      console.log(++count, currentPlace())
+      console.log(++count)
     },
     bounds)
 
