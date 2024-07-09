@@ -2,6 +2,6 @@
   "type": "module",
   "dependencies": {
     "passprint": "^0.0.1",
-    "wetbulb": "^1.3.0"
+    "wetbulb": "^1.4.0"
   }
 }
